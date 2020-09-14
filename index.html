@@ -1,8 +1,33 @@
 
+
 <!DOCTYPE html>
 <html>
   <head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <style>
+
+#customers {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+ td,  th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+ tr:nth-child(even){background-color: #f2f2f2;}
+
+ tr:hover {background-color: #ddd;}
+
+ th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #4CAF50;
+  color: white;
+}
      p {
     font-family: Arial;
     font-size: 18px;
@@ -21,25 +46,114 @@
           <p>
             Hello world
             </p><br>
-            <button onclick="callUser()">Show Users</button>
-          <p id="demo"> </p>
+            
+      
+        
+
+          <input type="button" value="Show users" onclick="generate_table()">
+
+          <br>
+          <br>
+
+          <input type="button" value="Sort users" onclick="sorted_table()">
+
+
+
+
+
+
+          <br>
+
+          
             
           <br>
 <!-- js-->
 <script>
 var  users = [
   ["John","john@dev.com","WX"]
-,["amin","a.abken@larobe.edu.au","VIC"],
+,["Amin","a.abken@larobe.edu.au","VIC"],
 ["Linda","Linda.Paterson@gmail.com","QLD"]];
 
 
-function returnUsers (users){
-  users.sort();
-  return users;
+function generate_table() {
+
+  var body = document.getElementsByTagName("body")[0];
+
+
+  var tbl = document.createElement("table");
+  var tblhead = document.createElement("thead");
+  var tblBody = document.createElement("tbody");
+ 
+
+
+  for (i = 0; i < users.length; i++){
+
+    var row = document.createElement("tr");
+
+    for (var j = 0; j < 3; j++) {
+      
+      var cell = document.createElement("td");
+      var cellText = document.createTextNode(users[i][j]);
+      cell.appendChild(cellText);
+      row.appendChild(cell);
+    }
+
+  
+    tblBody.appendChild(row);
+  }
+
+  tbl.appendChild(tblBody);
+
+  body.appendChild(tbl);
+  
+  tbl.setAttribute("border", "1");
 }
-function callUser() {
-  document.getElementById("demo").innerHTML = returnUsers(users);
+
+
+function sortUser(users){
+  sortedUser = users.sort();
+  return sortedUser;
 }
+
+function sorted_table() {
+  // get the reference for the body
+  var body = document.getElementsByTagName("body")[0];
+
+  // creates a <table> element and a <tbody> element
+  var tbl = document.createElement("table");
+  var tblhead = document.createElement("thead");
+  var tblBody = document.createElement("tbody");
+ 
+    var sort = sortUser(users);
+  // creating all cells
+  for (i = 0; i < users.length; i++){
+    // creates a table row
+    var row = document.createElement("tr");
+
+    for (var j = 0; j < 3; j++) {
+      // Create a <td> element and a text node, make the text
+      // node the contents of the <td>, and put the <td> at
+      // the end of the table row
+      var cell = document.createElement("td");
+      var cellText = document.createTextNode(users[i][j]);
+      cell.appendChild(cellText);
+      row.appendChild(cell);
+    }
+
+    // add the row to the end of the table body
+    tblBody.appendChild(row);
+  }
+
+  // put the <tbody> in the <table>
+  tbl.appendChild(tblBody);
+  // appends <table> into <body>
+  body.appendChild(tbl);
+  // sets the border attribute of tbl to 2;
+  tbl.setAttribute("border", "1");
+}
+
+
+
 
 </script>
 
